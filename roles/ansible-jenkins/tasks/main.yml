@@ -16,10 +16,10 @@
   rpm_key:
     key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
     state: present
-- name: update all packages
-  yum:
-    name: "*"
-    state: latest
+#- name: update all packages
+#  yum:
+#    name: "*"
+#    state: latest
 - name: install jenkins
   yum:
     name: jenkins
@@ -28,5 +28,3 @@
   service:
     name: jenkins
     state: started
-- name: Cat jenkins password
-  shell: cat /var/lib/jenkins/secrets/initialAdminPassword
