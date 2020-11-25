@@ -1,0 +1,7 @@
+---
+
+- name: Installing Jenkins on centos7
+  hosts: centos
+  become: true
+  roles: 
+    - ansible-jenkins 

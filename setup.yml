@@ -1,0 +1,35 @@
+---
+
+- hosts: centos
+  become: true
+  tasks:
+    - name: update centos repo
+      yum:
+        name: epel-release
+        state: present
+    - name: install java
+      yum:
+        name: java-11-openjdk-devel
+        state: latest
+    - name: print java version
+      command: java --version
+    - name: import jenkins repo
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+    - name: run rpm
+      rpm_key:
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+        state: present
+    - name: update all packages
+      yum:
+        name: "*"
+        state: latest
+    - name: install jenkins
+      yum:
+        name: jenkins
+        state: latest
+    - name: start jenkins
+      service:
+        name: jenkins
+        state: started
